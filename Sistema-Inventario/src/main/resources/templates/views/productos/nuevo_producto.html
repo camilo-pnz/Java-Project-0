@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Nuevo Producto</h2>
+    <form th:action="@{/views/productos/save}" th:object="${producto}" method="post" class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label">Código:</label>
+            <input type="text" class="form-control" th:field="*{codigo}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nombre:</label>
+            <input type="text" class="form-control" th:field="*{nombre}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Descripción:</label>
+            <textarea class="form-control" th:field="*{descripcion}" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Categoría:</label>
+            <select class="form-select" th:field="*{categoria}">
+                <option value="">-- Seleccione --</option>
+                <option th:each="cat : ${listaCategorias}"
+                        th:value="${cat.idCategoria}"
+                        th:text="${cat.nombre}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Proveedor:</label>
+            <select class="form-select" th:field="*{proveedor}">
+                <option value="">-- Seleccione --</option>
+                <option th:each="prov : ${listaProveedores}"
+                        th:value="${prov.idProveedor}"
+                        th:text="${prov.nombre}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Precio Compra:</label>
+            <input type="number" step="0.01" class="form-control" th:field="*{precioCompra}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Precio Venta:</label>
+            <input type="number" step="0.01" class="form-control" th:field="*{precioVenta}" required>
+        </div>
+        <div class="mb-3">
+    <label class="form-label">IVA (%):</label>
+    <input type="number" step="0.01" class="form-control" th:field="*{iva}" placeholder="Ej: 19">
+</div>
+        <div class="mb-3">
+            <label class="form-label">Stock inicial:</label>
+            <input type="number" class="form-control" th:field="*{stock}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Stock Mínimo:</label>
+            <input type="number" class="form-control" th:field="*{stockMinimo}" required>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <a th:href="@{/views/productos/}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>
