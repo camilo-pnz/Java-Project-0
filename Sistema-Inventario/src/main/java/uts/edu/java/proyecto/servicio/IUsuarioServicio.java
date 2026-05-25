@@ -9,4 +9,5 @@ public interface IUsuarioServicio {
     public Usuario listarId(Integer id);
     public Usuario save(Usuario usuario);
     public void delete(Integer id);
+    Usuario listarPorUsername(String username);
 }
