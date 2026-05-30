@@ -39,7 +39,16 @@ public class UsuarioControlador {
 
     @GetMapping("/delete/{idUsuario}")
     public String eliminar(@PathVariable int idUsuario) {
-        servicio.delete(idUsuario);
+        try {
+            servicio.delete(idUsuario);
+        } catch (Exception e) {
+            // Si tiene ventas asociadas, solo lo desactiva
+            Usuario usuario = servicio.listarId(idUsuario);
+            if (usuario != null) {
+                usuario.setActivo(false);
+                servicio.save(usuario);
+            }
+        }
         return "redirect:/views/usuarios/";
     }
     

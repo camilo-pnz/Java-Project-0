@@ -33,4 +33,8 @@ public class AppController {
     public String raiz() {
         return "redirect:/home";
     }
+    @GetMapping("/bienvenida")
+    public String bienvenida() {
+        return "bienvenida";
+    }
 }

@@ -13,10 +13,19 @@
             <label class="form-label">Username:</label>
             <input type="text" class="form-control" th:field="*{username}" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Contraseña:</label>
-            <input type="password" class="form-control" th:field="*{password}" required>
-        </div>
+       <div class="mb-3">
+    <label class="form-label">Contraseña:</label>
+    <input type="password" class="form-control" th:field="*{password}" 
+           id="password" required
+           pattern="(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':&quot;\\|,.<>\/?]).{8,}"
+           title="Mínimo 8 caracteres, una mayúscula y un carácter especial">
+    <div class="form-text text-muted">
+        Mínimo 8 caracteres, una mayúscula y un carácter especial (!@#$%^&*...)
+    </div>
+    <div id="passError" class="text-danger small" style="display:none;">
+        La contraseña no cumple los requisitos.
+    </div>
+</div>
         <div class="mb-3">
             <label class="form-label">Nombre:</label>
             <input type="text" class="form-control" th:field="*{nombre}" required>
@@ -44,5 +53,15 @@
         <a th:href="@{/views/usuarios/}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    const pass = document.getElementById('password').value;
+    const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
+    if (!regex.test(pass)) {
+        e.preventDefault();
+        document.getElementById('passError').style.display = 'block';
+    }
+});
+</script>
 </body>
 </html>

@@ -38,6 +38,12 @@
                        onclick="return confirm('¿Anular esta venta?')">Anular</a>
                 </td>
             </tr>
+            <a th:href="@{/reportes/ventas/pdf}" class="btn btn-danger mb-3">
+  	  📄 Exportar PDF
+		</a>
+		<a th:href="@{/reportes/ventas/excel}" class="btn btn-success mb-3">
+    	📊 Exportar Excel
+		</a>
         </tbody>
     </table>
 </div>

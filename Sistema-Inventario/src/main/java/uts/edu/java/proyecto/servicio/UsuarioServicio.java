@@ -32,9 +32,15 @@ public class UsuarioServicio implements IUsuarioServicio, UserDetailsService {
 
     @Override
     public Usuario save(Usuario usuario) {
-        // Solo encripta si la contraseña no está ya encriptada (usuario nuevo)
         if (usuario.getPassword() != null && !usuario.getPassword().startsWith("$2a$")) {
-            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+            String pass = usuario.getPassword();
+            if (pass.length() < 8 ||
+                !pass.matches(".*[A-Z].*") ||
+                !pass.matches(".*[!@#$%^&*()\\-_=+{};:,<.>].*")) {
+                throw new IllegalArgumentException(
+                    "La contraseña debe tener mínimo 8 caracteres, una mayúscula y un carácter especial.");
+            }
+            usuario.setPassword(passwordEncoder.encode(pass));
         }
         return usuarioRepositorio.save(usuario);
     }
@@ -48,6 +54,7 @@ public class UsuarioServicio implements IUsuarioServicio, UserDetailsService {
     public Usuario listarPorUsername(String username) {
         return usuarioRepositorio.findByUsername(username).orElse(null);
     }
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.findByUsername(username)
