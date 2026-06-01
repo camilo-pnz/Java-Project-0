@@ -1,9 +1,7 @@
 #Autoevaluación: 5
 
 ##Integrantes
-Juan Camilo Pinzon Jaimes 
-Wilson Yair Forero Ferreira
-Neiser Villareal
+Juan Camilo Pinzon Jaimes - Wilson Yair Forero Ferreira - Neiver Granados Quintero
 
 # Sistema de Inventario
 
